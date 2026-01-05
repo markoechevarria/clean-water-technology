@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { PrismaService } from 'src/prisma.service';
 import { CreateCourseDto } from './dto/create-course.dto';
 import { UpdateCourseDto } from './dto/update-course.dto';
+import { Prisma } from 'src/generated/prisma/client';
 
 @Injectable()
 export class CoursesService {
@@ -19,7 +20,7 @@ export class CoursesService {
         })
     }
 
-    async create( createCourseDto: CreateCourseDto) {
+    async create( createCourseDto: Prisma.coursesCreateInput){ // CreateCourseDto) {
         const newDate = new Date(createCourseDto.creation_date)
         return this.prismaService.courses.create({
             data: {
@@ -29,7 +30,7 @@ export class CoursesService {
         })
     }
 
-    async update(id: number, updateCourseDto: UpdateCourseDto) {
+    async update(id: number, updateCourseDto: Prisma.coursesUpdateInput) { // UpdateCourseDto) {
         return this.prismaService.courses.update({
             where: {
                 id_course: id

@@ -1,7 +1,8 @@
-import { Body, Controller, Delete, Get, Param, ParseIntPipe, Patch, Post } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, ParseIntPipe, Patch, Post, ValidationPipe } from '@nestjs/common';
 import { CoursesService } from './courses.service';
 import { CreateCourseDto } from './dto/create-course.dto';
 import { UpdateCourseDto } from './dto/update-course.dto';
+import { Prisma } from 'src/generated/prisma/client';
 
 @Controller('cursos')
 export class CoursesController {
@@ -18,12 +19,12 @@ export class CoursesController {
     }
 
     @Post()
-    create(@Body() createCourseDto: CreateCourseDto) {
+    create(@Body(ValidationPipe) createCourseDto: Prisma.coursesCreateInput){  // CreateCourseDto) {
         return this.coursesService.create(createCourseDto)
     }
 
     @Patch(":id")
-    update(@Param("id", ParseIntPipe) id: number, @Body() updateCourseDto: UpdateCourseDto) {
+    update(@Param("id", ParseIntPipe) id: number, @Body() updateCourseDto: Prisma.coursesUpdateInput) { // UpdateCourseDto) {
         return this.coursesService.update(id, updateCourseDto)
     }
 

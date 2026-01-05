@@ -5,6 +5,9 @@ import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
+  app.setGlobalPrefix("api")
+  app.enableCors()
+
   const config = new DocumentBuilder()
     .setTitle('Clean Weather Technology API')
     .setDescription('API documentation Clean Weather Technology')
@@ -13,6 +16,7 @@ async function bootstrap() {
     
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('docs', app, document);
+
 
   await app.listen(process.env.PORT ?? 3000);
 }
