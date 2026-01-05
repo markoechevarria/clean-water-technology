@@ -1,0 +1,9 @@
+services:
+  postgresql:
+    image: postgres
+    container_name: postgresqlContainer
+    ports:
+      - 5432:5432
+    environment:
+      POSTGRES_USER: marko
+      POSTGRES_PASSWORD: marko123 
